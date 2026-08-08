@@ -133,18 +133,15 @@ function Nav() {
     >
       <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-6 py-4">
         <a href="#top" className="min-w-0 font-display text-sm tracking-tight">
-
           <span className="font-semibold">Amit Soni</span>
-          <span className="ml-2 hidden text-muted-foreground sm:inline">
-            Cloud Infrastructure
-          </span>
+          <span className="ml-2 hidden opacity-55 sm:inline">Cloud Infrastructure</span>
         </a>
         <nav className="hidden items-center gap-7 md:flex">
           {NAV.map((n) => (
             <a
               key={n.href}
               href={n.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-accent"
+              className="text-sm opacity-70 transition-opacity hover:opacity-100"
             >
               {n.label}
             </a>
@@ -154,8 +151,9 @@ function Nav() {
           href={LINKEDIN}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex shrink-0 items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-sm text-foreground transition-colors hover:border-accent hover:text-accent md:hidden"
+          className="inline-flex shrink-0 items-center gap-1.5 rounded-md border border-current/25 px-3 py-1.5 text-sm opacity-80 transition-opacity hover:opacity-100 md:hidden"
         >
+
           <Linkedin className="h-4 w-4" />
         </a>
       </div>
