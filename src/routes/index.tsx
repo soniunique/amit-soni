@@ -12,6 +12,7 @@ import {
   ArrowUpRight,
   Download,
   Mail,
+  Zap,
 } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 
@@ -32,6 +33,8 @@ export const Route = createFileRoute("/")({
         content:
           "18+ years turning complex cloud migrations into reliable systems. OCI, Azure, middleware and database infrastructure leadership.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Index,
@@ -125,14 +128,14 @@ function Nav() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 border-b transition-colors ${
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${
         scrolled
-          ? "border-border bg-background/90 text-foreground backdrop-blur-md"
-          : "border-primary-foreground/12 bg-primary text-primary-foreground"
+          ? "border-border/60 bg-background/80 text-foreground backdrop-blur-xl"
+          : "border-transparent bg-transparent text-primary-foreground"
       }`}
     >
       <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-6 py-4">
-        <a href="#top" className="min-w-0 font-display text-sm tracking-tight">
+        <a href="#top" className="min-w-0 font-display text-lg tracking-tight">
           <span className="font-semibold">Amit Soni</span>
           <span className="ml-2 hidden opacity-55 sm:inline">Cloud Infrastructure</span>
         </a>
@@ -151,13 +154,22 @@ function Nav() {
           href={LINKEDIN}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex shrink-0 items-center gap-1.5 rounded-md border border-current/25 px-3 py-1.5 text-sm opacity-80 transition-opacity hover:opacity-100 md:hidden"
+          className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-current/25 px-3 py-1.5 text-sm opacity-80 transition-opacity hover:opacity-100 md:hidden"
         >
-
           <Linkedin className="h-4 w-4" />
         </a>
       </div>
     </header>
+  );
+}
+
+function Glows() {
+  return (
+    <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden">
+      <div className="absolute -left-[10%] -top-[10%] h-[600px] w-[600px] rounded-full bg-sunset-orange/20 blur-[120px]" />
+      <div className="absolute -right-[5%] bottom-[10%] h-[500px] w-[500px] rounded-full bg-sunset-rose/25 blur-[100px]" />
+      <div className="absolute left-[30%] top-[40%] h-[400px] w-[400px] rounded-full bg-sunset-violet/15 blur-[120px]" />
+    </div>
   );
 }
 
@@ -166,18 +178,20 @@ function Section({
   eyebrow,
   title,
   children,
+  className = "",
 }: {
   id: string;
   eyebrow: string;
   title: string;
   children: React.ReactNode;
+  className?: string;
 }) {
   return (
-    <section id={id} className="border-t border-border py-20 md:py-28">
-      <div className="mx-auto max-w-6xl px-6">
+    <section id={id} className={`relative border-t border-border/40 py-20 md:py-28 ${className}`}>
+      <div className="relative z-10 mx-auto max-w-6xl px-6">
         <Reveal>
           <p className="eyebrow">{eyebrow}</p>
-          <h2 className="mt-3 text-2xl font-semibold md:text-3xl">{title}</h2>
+          <h2 className="mt-3 font-display text-3xl font-semibold md:text-4xl">{title}</h2>
         </Reveal>
         <div className="mt-10 md:mt-14">{children}</div>
       </div>
@@ -185,84 +199,131 @@ function Section({
   );
 }
 
+function GlassCard({
+  children,
+  className = "",
+  gradient = false,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  gradient?: boolean;
+}) {
+  return (
+    <div
+      className={`rounded-3xl backdrop-blur-xl ${
+        gradient
+          ? "border border-sunset-rose/20 bg-gradient-to-br from-sunset-rose/10 to-sunset-violet/10"
+          : "glass"
+      } ${className}`}
+    >
+      {children}
+    </div>
+  );
+}
+
 function Index() {
   return (
-    <div id="top" className="min-h-screen">
+    <div id="top" className="relative min-h-screen overflow-hidden bg-background text-foreground">
+      <Glows />
       <Nav />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-primary text-primary-foreground">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.09]"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
-            backgroundSize: "72px 72px",
-          }}
-        />
-        <div className="relative mx-auto max-w-6xl px-6 pb-24 pt-36 md:pb-32 md:pt-44">
-          <Reveal>
-            <p className="eyebrow">Noida, India — Available for enterprise engagements</p>
-          </Reveal>
-          <Reveal delay={80}>
-            <h1 className="mt-6 text-4xl font-semibold leading-[1.08] md:text-6xl">Amit Soni</h1>
-          </Reveal>
-          <Reveal delay={140}>
-            <p className="mt-6 max-w-3xl font-display text-lg leading-relaxed text-primary-foreground/80 md:text-2xl">
-              Cloud Infrastructure Leader{" "}
-              <span className="text-primary-foreground/35">|</span> Oracle Cloud (OCI) Expert{" "}
-              <span className="text-primary-foreground/35">|</span> 18+ Years Turning Complex
-              Migrations into Reliable Systems
-            </p>
-          </Reveal>
-          <Reveal delay={200}>
-            <p className="mt-6 max-w-2xl text-sm leading-relaxed text-primary-foreground/60 md:text-base">
-              On a mission to deliver high-quality cloud solutions and empower the teams that keep
-              them running.
-            </p>
-          </Reveal>
-          <Reveal delay={260}>
-            <div className="mt-10 flex flex-wrap gap-3">
-              <a
-                href="#experience"
-                className="inline-flex items-center gap-2 rounded-md bg-accent px-5 py-3 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90"
-              >
-                View Experience
-                <ArrowUpRight className="h-4 w-4" />
-              </a>
-              <a
-                href={LINKEDIN}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-md border border-primary-foreground/25 px-5 py-3 text-sm font-medium transition-colors hover:border-primary-foreground/60"
-              >
-                <Linkedin className="h-4 w-4" />
-                Connect on LinkedIn
-              </a>
-              <button
-                type="button"
-                className="inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-medium text-primary-foreground/70 transition-colors hover:text-primary-foreground"
-              >
-                <Download className="h-4 w-4" />
-                Download Resume
-              </button>
-            </div>
-          </Reveal>
-          <Reveal delay={320}>
-            <dl className="mt-16 grid max-w-2xl grid-cols-2 gap-8 border-t border-primary-foreground/15 pt-8 sm:grid-cols-3">
-              {[
-                ["18+", "Years in consulting"],
-                ["12", "Oracle Cloud certifications"],
-                ["3", "Global technology firms"],
-              ].map(([v, l]) => (
-                <div key={l}>
-                  <dt className="font-display text-3xl font-semibold">{v}</dt>
-                  <dd className="mt-1 text-xs text-primary-foreground/55">{l}</dd>
+      <section className="relative overflow-hidden pt-32 md:pt-44">
+        <div className="relative z-10 mx-auto max-w-6xl px-6 pb-20 md:pb-32">
+          <div className="grid items-center gap-12 lg:grid-cols-12">
+            <div className="lg:col-span-7">
+              <Reveal>
+                <div className="inline-flex items-center gap-2 rounded-full border border-sunset-orange/30 bg-sunset-orange/10 px-3 py-1.5 backdrop-blur-md">
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sunset-orange opacity-75" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-sunset-orange" />
+                  </span>
+                  <span className="text-xs font-semibold uppercase tracking-wider text-sunset-orange/90">
+                    Noida, India — Available for enterprise engagements
+                  </span>
                 </div>
-              ))}
-            </dl>
-          </Reveal>
+              </Reveal>
+              <Reveal delay={80}>
+                <h1 className="mt-8 font-display text-5xl font-semibold leading-[1.05] text-foreground md:text-7xl lg:text-8xl">
+                  Amit <span className="gradient-text">Soni</span>
+                </h1>
+              </Reveal>
+              <Reveal delay={140}>
+                <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-2xl">
+                  Cloud Infrastructure Leader{" "}
+                  <span className="text-foreground/30">|</span> Oracle Cloud (OCI) Expert{" "}
+                  <span className="text-foreground/30">|</span> 18+ Years Turning Complex
+                  Migrations into Reliable Systems
+                </p>
+              </Reveal>
+              <Reveal delay={200}>
+                <p className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground/80 md:text-base">
+                  On a mission to deliver high-quality cloud solutions and empower the teams that keep
+                  them running.
+                </p>
+              </Reveal>
+              <Reveal delay={260}>
+                <div className="mt-10 flex flex-wrap gap-3">
+                  <a
+                    href="#experience"
+                    className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sunset-orange to-sunset-rose px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-sunset-orange/20 transition-all hover:-translate-y-0.5 hover:shadow-sunset-orange/30"
+                  >
+                    View Experience
+                    <ArrowUpRight className="h-4 w-4" />
+                  </a>
+                  <a
+                    href={LINKEDIN}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl border border-foreground/10 bg-foreground/5 px-6 py-3 text-sm font-semibold text-foreground backdrop-blur-xl transition-colors hover:bg-foreground/10"
+                  >
+                    <Linkedin className="h-4 w-4" />
+                    Connect on LinkedIn
+                  </a>
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    <Download className="h-4 w-4" />
+                    Download Resume
+                  </button>
+                </div>
+              </Reveal>
+            </div>
+
+            {/* Bento stats */}
+            <div className="lg:col-span-5">
+              <Reveal delay={160}>
+                <div className="grid grid-cols-2 gap-4">
+                  <GlassCard className="p-6">
+                    <span className="font-display text-4xl font-semibold text-sunset-orange">18+</span>
+                    <p className="mt-1 text-sm text-muted-foreground">Years in consulting</p>
+                  </GlassCard>
+                  <GlassCard gradient className="p-6">
+                    <span className="font-display text-4xl font-semibold text-sunset-rose">12</span>
+                    <p className="mt-1 text-sm text-muted-foreground">Oracle Cloud certifications</p>
+                  </GlassCard>
+                  <GlassCard className="col-span-2 flex items-center justify-between p-6">
+                    <div>
+                      <p className="font-display text-xl font-semibold text-foreground">Enterprise Cloud</p>
+                      <p className="text-sm text-muted-foreground">OCI · Azure · WebLogic · Oracle DB</p>
+                    </div>
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-tr from-sunset-orange to-sunset-rose">
+                      <Zap className="h-5 w-5 text-white" />
+                    </div>
+                  </GlassCard>
+                  <div className="col-span-2 rounded-3xl bg-gradient-to-r from-sunset-orange via-sunset-rose to-sunset-violet p-1">
+                    <div className="h-full rounded-[22px] bg-background p-6">
+                      <p className="text-sm font-semibold text-sunset-rose">Currently</p>
+                      <p className="mt-1 font-display text-lg font-semibold text-foreground">
+                        Cloud Infrastructure Manager at Accenture
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -290,50 +351,56 @@ function Index() {
             </p>
           </div>
           <Reveal delay={100}>
-            <div className="rounded-lg border border-border bg-card p-6">
+            <GlassCard className="p-6">
               <p className="eyebrow">Currently</p>
-              <p className="mt-3 font-display text-lg font-semibold">Cloud Infrastructure Manager</p>
+              <p className="mt-3 font-display text-xl font-semibold text-foreground">
+                Cloud Infrastructure Manager
+              </p>
               <p className="text-sm text-muted-foreground">Accenture</p>
-              <div className="mt-6 space-y-3 border-t border-border pt-6 text-sm text-muted-foreground">
+              <div className="mt-6 space-y-3 border-t border-border/40 pt-6 text-sm text-muted-foreground">
                 <p className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 shrink-0 text-accent" />
+                  <MapPin className="h-4 w-4 shrink-0 text-sunset-orange" />
                   Noida, Uttar Pradesh, India
                 </p>
                 <p className="flex items-center gap-2">
-                  <ShieldCheck className="h-4 w-4 shrink-0 text-accent" />
+                  <ShieldCheck className="h-4 w-4 shrink-0 text-sunset-orange" />
                   Oracle Certified Architect Associate
                 </p>
                 <p className="flex items-center gap-2">
-                  <Terminal className="h-4 w-4 shrink-0 text-accent" />
+                  <Terminal className="h-4 w-4 shrink-0 text-sunset-orange" />
                   OCI · Azure · WebLogic · Oracle DB
                 </p>
               </div>
-            </div>
+            </GlassCard>
           </Reveal>
         </div>
       </Section>
 
       {/* Experience */}
       <Section id="experience" eyebrow="Experience" title="A steady line through enterprise cloud.">
-        <ol className="relative border-l border-border pl-8 md:pl-12">
+        <ol className="relative border-l border-border/40 pl-8 md:pl-12">
           {ROLES.map((r, i) => (
             <li key={r.role + r.dates} className="relative pb-12 last:pb-0">
               <Reveal delay={i * 60}>
                 <span
                   className={`absolute -left-[41px] top-1.5 h-2.5 w-2.5 rounded-full md:-left-[57px] ${
-                    r.current ? "bg-accent ring-4 ring-accent/15" : "bg-border"
+                    r.current
+                      ? "bg-sunset-orange ring-4 ring-sunset-orange/20"
+                      : "bg-border"
                   }`}
                 />
-                <div className="grid gap-1 md:grid-cols-[1fr_auto] md:items-baseline md:gap-6">
-                  <h3 className="font-display text-lg font-semibold">{r.role}</h3>
-                  <p className="font-display text-xs uppercase tracking-widest text-muted-foreground">
-                    {r.dates}
+                <GlassCard className="p-6 md:p-8">
+                  <div className="grid gap-1 md:grid-cols-[1fr_auto] md:items-baseline md:gap-6">
+                    <h3 className="font-display text-lg font-semibold text-foreground">{r.role}</h3>
+                    <p className="font-sans text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                      {r.dates}
+                    </p>
+                  </div>
+                  <p className="mt-1 text-sm font-semibold text-sunset-orange">{r.company}</p>
+                  <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                    {r.impact}
                   </p>
-                </div>
-                <p className="mt-1 text-sm font-medium text-accent">{r.company}</p>
-                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-                  {r.impact}
-                </p>
+                </GlassCard>
               </Reveal>
             </li>
           ))}
@@ -342,14 +409,20 @@ function Index() {
 
       {/* Skills */}
       <Section id="skills" eyebrow="Expertise" title="Core skills and technical depth.">
-        <div className="grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {SKILLS.map((s, i) => (
-            <Reveal key={s.title} delay={i * 70} className="bg-card">
-              <div className="h-full bg-card p-8">
-                <s.icon className="h-6 w-6 text-accent" strokeWidth={1.5} />
-                <h3 className="mt-5 font-display text-base font-semibold">{s.title}</h3>
+            <Reveal key={s.title} delay={i * 70}>
+              <GlassCard
+                className="h-full p-6"
+                gradient={i === 1}
+              >
+                <s.icon
+                  className={`h-6 w-6 ${i === 1 ? "text-sunset-rose" : "text-sunset-orange"}`}
+                  strokeWidth={1.5}
+                />
+                <h3 className="mt-5 font-display text-base font-semibold text-foreground">{s.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.items}</p>
-              </div>
+              </GlassCard>
             </Reveal>
           ))}
         </div>
@@ -360,18 +433,20 @@ function Index() {
         <div className="grid gap-4 md:grid-cols-3">
           {CERTS.map((c, i) => (
             <Reveal key={c.name} delay={i * 70}>
-              <div className="h-full rounded-lg border border-border bg-card p-6">
-                <ShieldCheck className="h-5 w-5 text-highlight" strokeWidth={1.75} />
-                <p className="mt-5 font-display text-sm font-semibold leading-snug">{c.name}</p>
-                <p className="mt-2 text-xs uppercase tracking-widest text-muted-foreground">
+              <GlassCard className="h-full p-6">
+                <ShieldCheck className="h-5 w-5 text-sunset-violet" strokeWidth={1.75} />
+                <p className="mt-5 font-display text-base font-semibold leading-snug text-foreground">
+                  {c.name}
+                </p>
+                <p className="mt-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
                   {c.issuer}
                 </p>
-              </div>
+              </GlassCard>
             </Reveal>
           ))}
         </div>
         <Reveal delay={220}>
-          <p className="mt-6 border-l-2 border-highlight pl-4 text-sm text-muted-foreground">
+          <p className="mt-6 border-l-2 border-sunset-violet pl-4 text-sm text-muted-foreground">
             Plus additional Oracle Cloud credentials across infrastructure, database and multicloud
             architecture tracks.
           </p>
@@ -379,14 +454,14 @@ function Index() {
       </Section>
 
       {/* Contact */}
-      <section id="contact" className="border-t border-border bg-primary text-primary-foreground">
-        <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+      <section id="contact" className="relative border-t border-border/40">
+        <div className="relative z-10 mx-auto max-w-6xl px-6 py-20 md:py-28">
           <Reveal>
             <p className="eyebrow">Contact</p>
-            <h2 className="mt-3 max-w-2xl text-2xl font-semibold md:text-3xl">
+            <h2 className="mt-3 max-w-2xl font-display text-3xl font-semibold md:text-4xl">
               Planning a migration, a modernization, or an infrastructure reset?
             </h2>
-            <p className="mt-4 max-w-xl text-sm leading-relaxed text-primary-foreground/60">
+            <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
               Happy to talk through cloud architecture, OCI and Azure operations, or middleware and
               database challenges.
             </p>
@@ -397,14 +472,14 @@ function Index() {
                 href={LINKEDIN}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-md bg-accent px-5 py-3 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90"
+                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sunset-orange to-sunset-rose px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-sunset-orange/20 transition-all hover:-translate-y-0.5 hover:shadow-sunset-orange/30"
               >
                 <Linkedin className="h-4 w-4" />
                 Connect on LinkedIn
               </a>
               <a
                 href="mailto:hello@example.com?subject=Cloud%20infrastructure%20enquiry"
-                className="inline-flex items-center gap-2 rounded-md border border-primary-foreground/25 px-5 py-3 text-sm font-medium transition-colors hover:border-primary-foreground/60"
+                className="inline-flex items-center gap-2 rounded-xl border border-foreground/10 bg-foreground/5 px-6 py-3 text-sm font-semibold text-foreground backdrop-blur-xl transition-colors hover:bg-foreground/10"
               >
                 <Mail className="h-4 w-4" />
                 Send an email
@@ -412,8 +487,8 @@ function Index() {
             </div>
           </Reveal>
         </div>
-        <div className="border-t border-primary-foreground/12">
-          <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-6 py-6 text-xs text-primary-foreground/50">
+        <div className="border-t border-border/40">
+          <div className="relative z-10 mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-6 py-6 text-xs text-muted-foreground">
             <p className="min-w-0 truncate">
               © {new Date().getFullYear()} Amit Soni · Noida, Uttar Pradesh, India
             </p>
@@ -421,7 +496,7 @@ function Index() {
               href={LINKEDIN}
               target="_blank"
               rel="noreferrer"
-              className="shrink-0 transition-colors hover:text-primary-foreground"
+              className="shrink-0 transition-colors hover:text-foreground"
             >
               LinkedIn
             </a>
