@@ -125,12 +125,15 @@ function Nav() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors ${
-        scrolled ? "border-b border-border bg-background/85 backdrop-blur-md" : "bg-transparent"
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-colors ${
+        scrolled
+          ? "border-border bg-background/90 text-foreground backdrop-blur-md"
+          : "border-primary-foreground/12 bg-primary text-primary-foreground"
       }`}
     >
       <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-6 py-4">
-        <a href="#top" className="min-w-0 font-display text-sm font-600 tracking-tight">
+        <a href="#top" className="min-w-0 font-display text-sm tracking-tight">
+
           <span className="font-semibold">Amit Soni</span>
           <span className="ml-2 hidden text-muted-foreground sm:inline">
             Cloud Infrastructure
