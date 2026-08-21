@@ -250,7 +250,7 @@ function Index() {
               </Reveal>
               <Reveal delay={140}>
                 <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-2xl">
-                  Cloud Infrastructure Leader — Deployment Test{" "}
+                  Cloud Infrastructure Leader{" "}
                   <span className="text-foreground/30">|</span> Oracle Cloud (OCI) Expert{" "}
                   <span className="text-foreground/30">|</span> 18+ Years Turning Complex
                   Migrations into Reliable Systems
