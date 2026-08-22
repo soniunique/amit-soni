@@ -13,10 +13,12 @@ import {
   Download,
   Mail,
   Zap,
+  GraduationCap,
 } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 
 const LINKEDIN = "https://www.linkedin.com/in/amit-soni-55805821/";
+const LEARN_LOGIN = "https://learn.coachamitsoni.com/learn/login";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -149,15 +151,31 @@ function Nav() {
               {n.label}
             </a>
           ))}
+          <a
+            href={LEARN_LOGIN}
+            className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-sunset-orange to-sunset-rose px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-sunset-orange/20 transition-all hover:-translate-y-0.5 hover:shadow-sunset-orange/30"
+          >
+            <GraduationCap className="h-4 w-4" />
+            Student Login
+          </a>
         </nav>
-        <a
-          href={LINKEDIN}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-current/25 px-3 py-1.5 text-sm opacity-80 transition-opacity hover:opacity-100 md:hidden"
-        >
-          <Linkedin className="h-4 w-4" />
-        </a>
+        <div className="flex shrink-0 items-center gap-2 md:hidden">
+          <a
+            href={LEARN_LOGIN}
+            className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-sunset-orange to-sunset-rose px-3 py-1.5 text-xs font-semibold text-white shadow-lg shadow-sunset-orange/20"
+          >
+            <GraduationCap className="h-4 w-4" />
+            Student Login
+          </a>
+          <a
+            href={LINKEDIN}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-full border border-current/25 px-3 py-1.5 text-sm opacity-80 transition-opacity hover:opacity-100"
+          >
+            <Linkedin className="h-4 w-4" />
+          </a>
+        </div>
       </div>
     </header>
   );
